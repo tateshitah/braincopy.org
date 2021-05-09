@@ -1,0 +1,28 @@
+<HTML>
+<HEAD>
+<TITLE>FPDX</TITLE>
+</HEAD>
+<BODY BGCOLOR="WHITE">
+<H3 ALIGN=CENTER>PDX着信メロディ送信アプリケーション</H3>
+<P ALIGN=RIGHT>
+<A HREF="java.html">Javaページへ</A>
+</P>
+<HR>
+<CENTER>
+<IMG SRC="FPDX.gif" width="500" height="400">
+</CENTER>
+<P><A HREF="PDX.jar">PXD.jar</A></P>
+<P>使うには上のPDX.jarをダウンロードし、下のコマンドをDOSプロンプトで実行すると上のようなウィンドウがでてきます。</P>
+<P>
+#> java -cp PDX.jar FPDX
+</P>
+<P>そして"SERVER"にはメールサーバ名を(例：mail.dion.ne.jp)、"TO", "FROM"にはメールアドレスを、"MELODY"にはalsファイルを入力し、SENDボタンを押すとメロディが送信されます。
+</P>
+<P>alsファイルとはH"のメロディファイルで、H"でメロディを添付してパソコンにメールを送るとテキストファイルがついてきます。そのテキスト部分だけを切り取ったテキストファイルをalsファイルと呼んでいます。</P>
+<P><A HREF="melody.html">alsファイル</A></P>
+<P>ちなみに以下のようなコマンドでもメロディを送信することができます。</P>
+<P>
+#> java -cp PDX.jar PDX 
+</P>
+</BODY>
+</HTML>

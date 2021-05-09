@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <title>SSI</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+  <meta name="GENERATOR"
+ content="Mozilla/4.6 [ja] (Win98; I) [Netscape]">
+  <meta name="Author" content="Tateshita Hiroaki">
+</head>
+<body style="color: gray; background-color: rgb(255, 255, 255);"
+ link="cadetblue" vlink="darkcyan">
+<center>
+<h1>&nbsp; SSI test<br>
+</h1>
+</center>
+<p align="right"><a href="index.html">ホームへ</a> </p>
+SSIのテストです。ここに表示される情報は、単に表示されるだけで、どこかに送信されたりするわけではありません。<br>
+<hr><!--begin--><span style="text-decoration: underline;"><br>
+<br>
+</span>
+<pre><font color="red"><!--#echo var="REMOTE_HOST"--></font>アクセス者のホスト名表示(ppp接続で割り当てられている）<br><br><br><br><font
+ color="red"><!--#echo var="REMOTE_ADDR"--></font>アクセス者のIPアドレス表示(ppp接続で割り当てられいる）<br><br><br><font
+ color="red"><!--#echo var="HTTP_USER_AGENT"--></font>アクセス者が使用しているブラウザ名<br><br><br><font
+ color="red"><!--#echo var="HTTP_REFERER"--></font>どこのURLからリンクしてアクセスしているか表示<br><br><br><font
+ color="red"><!--#echo var="SERVER_SOFTWARE"--></font>サーバーのソフトウェア名<br><br><br><font
+ color="red"><!--#echo var="SERVER_NAME"--></font>サーバー名<br><br><br><font
+ color="red"><!--#echo var="DATE_LOCAL"--></font>現在アクセスしている時間を表示<br><br><br><font
+ color="red"><!--#echo var="DOCUMENT_NAME"--></font>現在アクセスしているファイルの名前<br><br><br><font
+ color="red"><!--#echo var="LAST_MODIFIED"--></font>現在アクセスしているファイルの最終更新時間<br></pre>
+<br>
+<br>
+</body>
+</html>

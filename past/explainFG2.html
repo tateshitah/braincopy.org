@@ -1,0 +1,29 @@
+<HTML>
+<HEAD>
+  <META HTTP-EQUIV="Content-Type" CONTENT="text/html;CHARSET=x-sjis">
+  <TITLE>How to FGraph2</TITLE>
+</HEAD>
+<BODY BGCOLOR=white >
+<H3 ALIGN=CENTER>説明など</H3>
+<P ALIGN=RIGHT><A HREF="Fgraph2.html">グラフ描画アプリケーションへ</A></P>
+<HR>
+<P>JavaCCは、文法定義ファイルを入力するとJavaによって記述された構文解析器を作成してくれるツールであります。探せばどこかに落ちてると思います。
+<P>JavaCCで使う文法定義ファイルのサンプルを置いておきます。これは数式の文法定義で、プログラム言語Javaの文法定義から削り取ってきたものです。</P>
+<P><A HREF="ExpressionParser.jjt">ExpressionParser.jjt</A></P>
+<P>よって入力できる数式はJavaで使える数式と同じ文法で書けばよいことになります。</P>
+<P>使える関数は以下のとおり</P>
+<P>
+sin(t), cos(t), tan(t), ln(t), exp(t), pow(t), abs(t), max(t1, t2), min(t1, t2), sqrt(t)
+</P>
+
+<P>Javaで書かれた構文解析器を得るにはまず上のjjtファイルをJTreeにかけます。</P>
+<P>
+#> JJTree ExpressionParser.jjt
+</P>
+<P>するといくつかのファイルとともにExpressionParser.jjファイルが手に入ります。</P>
+<P>
+#> JavaCC ExpressionParser.jj
+</P>
+<P>するとExpressionParser.javaが手に入ります。これとほかに出てきたファイルをすべてコンパイルするとJavaで記述された構文解析器が手に入ります。グラフ描画アプリケーションはこの構文解析器を使用して数式を解析しグラフを描いています。</P> 
+</BODY>
+</HTML>

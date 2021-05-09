@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>password</title>
+<script language="JavaScript">
+<!-- For browsers that don't interpret JavaScript
+
+var pwValue = "mijinko"
+var nextLocation = "himitsu.html"
+
+function checkPW(){
+	if(document.pwForm.pwInput.value == pwValue) {
+		location = nextLocation
+		document.pwForm.pwInput.value = "Hello!!"
+	} else {
+		alert("Wrong password!")
+		document.pwForm.pwInput.value = ""
+		document.pwForm.pwInput.focus()
+	}
+}
+//-->
+
+</script>
+</head>
+<body bgcolor="#eeffff">
+<form name="pwForm">
+<b>Input password , and push OK button.</b>
+<input type="password" name="pwInput" size=10>
+<input type="button" value="OK" onClick=checkPW()>
+<input type="reset" value="reset" onClick=document.pwForm.pwInput.focus()>
+</form>
+<br>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<HTML>
+<HEAD>
+<TITLE>PDX</TITLE>
+</HEAD>
+<BODY BGCOLOR="WHITE">
+<H3 ALIGN=CENTER>PDX着メロ送信アプレット</H3>
+<P ALIGN=RIGHT>
+<A HREF="java.html">Javaページへ</A>
+</P>
+<HR>
+<P>うーん、まだこのアプレットは動かないンです。
+java.applet.Applet.getCodeBase().getHost()でそのアプレットのある場所のURLのホストを得るところで
+失敗しているみたいです。きっとセキュリティの問題なのでしょう。
+ホストが得られないのでソケットを作ることができず、
+そこでNullPointerexceptionが起きているみたい。
+あとアプレットだとファイルの扱いがセキュリティーの問題でできない！
+署名付きアプレットを使えば良いらしいが、インターネットで調べたところ、結構難しい。
+</P>
+<P>
+一応ソースを。なにかアドバイスあればよろしくお願いします。
+</P>
+
+<P><A HREF="ApPDX.java">ApPDX.java</A></P>
+<CENTER>
+<APPLET CODE=ApPDX WIDTH="500" HEIGHT="400" ARCHIVE="ApPDX.jar">
+</APPLET>
+</CENTER>
+<BR>
+</BODY>
+</HTML>

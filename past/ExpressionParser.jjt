@@ -1,0 +1,217 @@
+/**
+ *
+ * Copyright (c) 1996-1997 Sun Microsystems, Inc.
+ *
+ * Use of this file and the system it is part of is constrained by the
+ * file COPYRIGHT in the root directory of this system.
+ *
+ */
+
+options {
+  MULTI=true;
+  VISITOR=true;
+  NODE_DEFAULT_VOID=false;
+  STATIC=false;
+}
+
+PARSER_BEGIN(ExpressionParser)
+
+//package graph.ver2;
+
+class ExpressionParser {
+  public static void main(String args[]) {
+    System.out.println("Reading from standard input...");
+    ExpressionParser t = new ExpressionParser(System.in);
+    try {
+      ASTStart n = t.Start();
+      ShowTree(n,0);
+//      ExpressionParserVisitor v = new ExpressionParserDumpVisitor();
+//      n.jjtAccept(v, null);
+//      System.out.println("Thank you.");
+    } catch (Exception e) {
+      System.out.println("Oops.");
+      System.out.println(e.getMessage());
+      e.printStackTrace();
+    }
+  }
+    public void PrintTree(){
+        ShowTree(this.jjtree.rootNode(),0);
+    }
+
+    static void ShowTree(Node root, int indent){
+        int cn=0;
+        PutIndent(indent);
+        java.lang.System.out.println(root);
+        cn = root.jjtGetNumChildren();
+        for(int i=0;i<cn-1;i++){
+            ShowTree(root.jjtGetChild(i),indent+1);
+        }
+        if(cn!=0)
+            ShowTree(root.jjtGetChild(cn-1),indent+1);
+    }
+
+    static void PutIndent(int indent){
+        for(int i=0;i<indent;i++)
+            System.out.print(" ");
+    }
+}
+
+PARSER_END(ExpressionParser)
+
+
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+| <"//" (~["\n","\r"])* ("\n"|"\r"|"\r\n")>
+| <"/*" (~["*"])* "*" (~["/"] (~["*"])* "*")* "/">
+}
+
+TOKEN : /* LITERALS */
+{
+  < INTEGER_LITERAL:
+        <DECIMAL_LITERAL> (["l","L"])?
+      | <HEX_LITERAL> (["l","L"])?
+      | <OCTAL_LITERAL> (["l","L"])?
+  >
+|
+  < #DECIMAL_LITERAL: ["1"-"9"] (["0"-"9"])* >
+|
+  < #HEX_LITERAL: "0" ["x","X"] (["0"-"9","a"-"f","A"-"F"])+ >
+|
+  < #OCTAL_LITERAL: "0" (["0"-"7"])* >
+|
+  < FLOATING_POINT_LITERAL:
+        (["0"-"9"])+ "." (["0"-"9"])* (<EXPONENT>)? (["f","F","d","D"])?
+      | "." (["0"-"9"])+ (<EXPONENT>)? (["f","F","d","D"])?
+      | (["0"-"9"])+ <EXPONENT> (["f","F","d","D"])?
+      | (["0"-"9"])+ (<EXPONENT>)? ["f","F","d","D"]
+  >
+|
+  < #EXPONENT: ["e","E"] (["+","-"])? (["0"-"9"])+ >
+}
+
+TOKEN : /* IDENTIFIERS */
+{
+  < IDENTIFIER: <LETTER> (<LETTER>|<DIGIT>)* >
+|
+  < #LETTER: ["_","a"-"z","A"-"Z"] >
+|
+  < #DIGIT: ["0"-"9"] >
+}
+
+ASTStart Start() #Start : {}
+{
+  Expression() ";"
+  { return jjtThis; }
+}
+
+
+void Expression() #void: {}
+{
+  AdditiveExpression()
+}
+
+void AdditiveExpression() #void : 
+{
+Token t;
+}
+{
+  (
+    MultiplicativeExpression() ( ( t="+" 
+  {
+    jjtThis.setName(t.image);
+  }
+  | t="-" 
+  {
+    jjtThis.setName(t.image);
+  }
+) MultiplicativeExpression() )*
+  ) #Add(>1)
+}
+
+void MultiplicativeExpression() #void: 
+{
+  Token t;
+}
+{
+  (
+    UnaryExpression() ( ( 
+    t="*"
+  {
+    jjtThis.setName(t.image);
+  } 
+  | t="/"
+  {
+    jjtThis.setName(t.image);
+  } 
+  | t="%"
+  {
+    jjtThis.setName(t.image);
+  }
+    ) UnaryExpression() )*
+  ) #Mult(>1)
+}
+
+void UnaryExpression() #void : {}
+{
+  PrimaryPrefix() ( LOOKAHEAD(2) PrimarySuffix() )*
+}
+
+void PrimaryPrefix() #void:
+{}
+{
+  Literal()
+|
+ "(" Expression() ")" 
+  |
+  Identifier() 
+}
+
+void PrimarySuffix() #void:
+{}
+{
+  Arguments()
+}
+
+void Literal() #Lit:
+{
+Token t;
+}
+{
+  t=<INTEGER_LITERAL>
+{
+  jjtThis.setName(t.image);
+} 
+ |
+   t=<FLOATING_POINT_LITERAL>
+{
+   jjtThis.setName(t.image);	
+}
+   }
+   
+void Arguments() #Arg :
+{}
+{
+  "(" [ ArgumentList() ] ")"
+}
+
+void ArgumentList() #void :
+{}
+{
+  Expression() ( "," Expression() )*
+}
+
+void Identifier() #ID :
+{
+  Token t;
+}
+{
+  t=<IDENTIFIER>
+  {
+    jjtThis.setName(t.image);
+  }
+}
+

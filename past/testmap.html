@@ -1,0 +1,25 @@
+<html>
+  <body>
+    <title>OpenLayers Demo</title>
+<table border=4><tr><td>hello</td></tr>
+<tr><td>
+<div id="demoMap" style="width: 400px; height: 400px"></div> 
+<script src="http://www.openlayers.org/api/OpenLayers.js"></script> 
+<script> 
+ map = new OpenLayers.Map("demoMap");
+ layer = new OpenLayers.Layer.OSM();
+ map.addLayer(layer);
+ var markers = new OpenLayers.Layer.Markers( "Markers" );
+ map.addLayer(markers); 
+ var lonLat = new OpenLayers.LonLat(139.77437,35.684444);
+ markers.addMarker(new OpenLayers.Marker(lonLat));
+ map.setCenter(lonLat.transform(
+ new OpenLayers.Projection("EPSG:4326"),
+ new OpenLayers.Projection("EPSG:900913")
+ ), 11
+ );
+</script>
+</td></tr>
+</table>
+  </body>
+</html>
