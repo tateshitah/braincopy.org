@@ -136,7 +136,7 @@ function startPlot(iss_cat_id) {
 		}
 		var url = url_string + "/tlews/app/groundTrack?" + "dateTime="
 			+ url_DateTime + "&norad_cat_id=" + iss_cat_id
-			+ "&format=jsonp&term=86400&step=100";
+			+ "&format=jsonp&term=5400&step=100";
 		load_src(url);
 	}, 200);
 }
